@@ -13,7 +13,7 @@ if [ "$down_service_list" != '' ];then
    export IFS=$'\n'
    for i in $(echo $down_service_list); do
       echo "Found down cinder service $(echo $i | cut -d\: -f2) on host $(echo $i | cut -d\: -f1 | cut -d\@ -f1). Restarting..."
-      ssh $(echo $i | cut -d\: -f1 | sed 's/-cinder-volumes-container/_cinder_volumes_container/') "service $(echo $i | cut -d\: -f2) restart)"
+      ssh $(echo $i | cut -d\: -f1 | sed 's/-cinder-volumes-container/_cinder_volumes_container/') "service $(echo $i | cut -d\: -f2) restart"
       echo "Done..."
    done
 fi
