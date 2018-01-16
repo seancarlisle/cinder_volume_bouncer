@@ -13,7 +13,6 @@ down_service_list=$(cinder service-list | awk -F\| '/cinder-volume/ && /down/ {p
 
 # If down_service_list isn't empty, a service is down, we need to determine which one it is and bounce it
 if [ "$down_service_list" != '' ];then
-   export IFS=$'\n'
    for i in $(echo $down_service_list); do
       echo "Found down cinder service $(echo $i | cut -d\: -f2) on host $(echo $i | cut -d\: -f1 | cut -d\@ -f1). Restarting..."
       ssh $(echo $i | cut -d\: -f1 | sed 's/-cinder-volumes/_cinder_volumes/' | sed 's/-container/_container/' | cut -d\@ -f1) "service $(echo $i | cut -d\: -f2) restart"
